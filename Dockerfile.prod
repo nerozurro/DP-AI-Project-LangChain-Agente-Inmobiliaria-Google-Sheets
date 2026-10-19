@@ -1,0 +1,20 @@
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/usr/src/app/application \
+    PORT=8080
+
+WORKDIR /usr/src/app
+
+# Install dependencies before copying code to reuse the build cache.
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Credentials are mounted at runtime; never copied into the image.
+COPY application/ ./application/
+
+EXPOSE 8080
+
+# Expand Cloud Run's PORT and forward shutdown signals to Uvicorn.
+CMD ["sh", "-c", "exec uvicorn application.main_chatwoot:app --host 0.0.0.0 --port ${PORT:-8080} --proxy-headers"]

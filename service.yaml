@@ -1,0 +1,86 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: servicio-agente-inmobiliaria
+spec:
+  template:
+    spec:
+      serviceAccountName: 631292288359-compute@developer.gserviceaccount.com
+      containers:
+        - image: us-central1-docker.pkg.dev/project-datapath-510919/repo-agent-chatwoot-fastapi/image-agente-inmobiliaria:v1
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: "1"
+          env:
+            - name: DB_USER
+              value: "postgres.vtypaxtvjhrfossmgcdy"
+            - name: DB_HOST
+              value: "aws-0-us-east-2.pooler.supabase.com"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: "postgres"
+            - name: QDRANT_URL
+              value: "https://datapath-ai-qdrant-ai-engineer.yhy6dc.easypanel.host/"
+            - name: QDRANT_COLLECTION
+              value: "tenant_id_alpha_state"
+            - name: CHATWOOT_BASE_URL
+              value: "https://datapath-ai-chatwoot.yhy6dc.easypanel.host"
+            - name: CHATWOOT_ACCOUNT_ID
+              value: "1"
+            - name: CHATWOOT_BOT_LABEL
+              value: "atiende-ia"
+            - name: AGENT_TIMEZONE
+              value: "America/Lima"
+            - name: GOOGLE_SHEET_ID
+              value: "1J3JaU-zR14n9fzcc8N4LiJxtnalfijNNtVcZqtDIe1Q"
+            - name: GOOGLE_SHEETS_WORKSHEET
+              value: "Rio Sul"
+            - name: GOOGLE_SHEETS_HEADER_ROW
+              value: "2"
+            - name: GOOGLE_SHEET_DEPARTAMENTOS_ID
+              value: "1QZDxnM2BuqiXE9jnyTlfnIcwYfvtlrILLTZZT1ofQNw"
+            - name: GOOGLE_SHEETS_DEPARTAMENTOS_WORKSHEET
+              value: "Departamentos"
+            - name: GOOGLE_SHEETS_DEPARTAMENTOS_HEADER_ROW
+              value: "1"
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: "/secrets/google/credentials.json"
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: OPENAI_API_KEY
+                  key: latest
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: DB_PASSWORD
+                  key: latest
+            - name: QDRANT_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: QDRANT_API_KEY
+                  key: latest
+            - name: TAVILY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: TAVILY_API_KEY
+                  key: latest
+            - name: CHATWOOT_API_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: CHATWOOT_API_ACCESS_TOKEN
+                  key: latest
+          volumeMounts:
+            - name: google-credentials
+              mountPath: /secrets/google
+      volumes:
+        - name: google-credentials
+          secret:
+            secretName: GOOGLE_SHEETS_CREDENTIALS
+            items:
+              - key: latest
+                path: credentials.json

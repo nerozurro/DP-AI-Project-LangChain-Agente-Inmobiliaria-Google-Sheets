@@ -93,7 +93,7 @@ def _resolve_credentials_path(path: str) -> str:
     """Si la ruta es relativa, la resuelve contra el directorio del proyecto."""
     if os.path.isabs(path):
         return path
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     return os.path.join(project_root, path)
 
 

@@ -31,8 +31,8 @@ from dotenv import load_dotenv
 
 from validacion_nombre_tenant_id import validar_qdrant
 
-# La raíz del proyecto al path: vector_store.py vive un nivel arriba
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# application/ al path: contiene vector_store.py
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "application"))
 
 # Paso 3: el modelo de embeddings y la colección NO se definen acá.
 # Vienen de vector_store.py, la fuente única que también usa la tool de consulta.

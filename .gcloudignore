@@ -1,0 +1,45 @@
+# Respect the repository's ignore rules, plus deployment exclusions below.
+#!include:.gitignore
+.gcloudignore
+# Secrets and local credentials
+.env
+.env.*
+**/.env
+**/.env.*
+*.env
+**/*.env
+credentials/
+**/credentials/
+*.json
+**/*.json
+*.pem
+**/*.pem
+*.key
+**/*.key
+
+# Version control and editor settings
+.git/
+.claude/
+.vscode/
+.idea/
+
+# Python environments and caches
+.venv/
+venv/
+env/
+**/__pycache__/
+**/*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local reference data and ingestion pipeline
+application/tools/tmp/
+RAG-Clasico-con-Qdrant/
+
+# Operating system files and logs
+**/desktop.ini
+**/Thumbs.db
+**/.DS_Store
+*.log
+**/*.log
