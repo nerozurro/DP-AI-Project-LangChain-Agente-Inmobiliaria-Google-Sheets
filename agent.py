@@ -54,6 +54,10 @@ from tools.Google_Sheets import (
     consultar_total_inquilino,
     consultar_desglose_inquilino,
 )
+from tools.Google_Sheets_Departamentos import (
+    buscar_departamentos,
+    consultar_detalle_departamento,
+)
 
 # Memoria (checkpointer) + log plano de la conversación (PostgreSQL)
 from conversation_history import (
@@ -72,6 +76,8 @@ tools = [
     obtener_fecha_hora,             # Fecha y hora actual por zona horaria
     consultar_total_inquilino,      # Total mensual de un inquilino (Google Sheets)
     consultar_desglose_inquilino,   # Desglose de la cuota de un inquilino (Google Sheets)
+    buscar_departamentos,
+    consultar_detalle_departamento,
 ]
 
 # ============================================

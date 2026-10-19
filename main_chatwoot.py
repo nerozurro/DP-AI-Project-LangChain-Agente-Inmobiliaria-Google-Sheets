@@ -22,12 +22,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 # Importar directamente el agente (sin rutas locales)
 from agent import chat_con_agente, tools
 from tools.Google_Sheets import verificar_acceso_google_sheets
+from tools.Google_Sheets_Departamentos import verificar_acceso_google_sheets_departamentos
 
 print("🤖 Cargando Agente Alpha State (Qdrant)...")
 print("✅ Agente Alpha State cargado correctamente")
 
 # Verificar al arrancar que la Service Account puede leer la hoja (log verde/rojo)
 verificar_acceso_google_sheets()
+verificar_acceso_google_sheets_departamentos()
 
 # ============================================
 # CONFIGURACIÓN DE CHATWOOT
